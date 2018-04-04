@@ -28,7 +28,7 @@ class AuthController extends Controller
      *
      * @return Response
      */
-    public function handleProviderCallback(Request $request)
+    public function handleProviderCallback(Request $request,\Exception  $exception)
     {
         $user = Socialize::driver('graph')->user();
         //Check wether the URL is consist of NUIG

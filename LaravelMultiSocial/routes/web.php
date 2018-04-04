@@ -52,17 +52,13 @@ Route::delete('admin/categories/delete/{id}', 'StaffAdminController@destroyCateg
 
 //Display available categories
 Route::get('admin/products', 'StaffAdminController@showProducts')->name('adminstaff.products');
-
+//Display activity logs
 Route::get('admin/logs', 'StaffAdminController@showLogs')->name('adminstaff.logs');
-
+//Export activity logs to excel
 Route::get('admin/download', 'StaffAdminController@export');
-
+//Display users list
 Route::get('admin/userlist', 'StaffAdminController@showuserlist')->name('adminstaff.userlist');
-//Collect product form
-// Route::get('/home', 'HomeController@Assign');
 //collect table update transactions
 Route::post('/insert', 'StaffAdminController@collect');
-//Return product form
-//Route::get('/home', 'HomeController@Collect');
 //return table update transactions
 Route::post('/collecting', 'StaffAdminController@return');

@@ -61,55 +61,44 @@ class StaffAdminController extends Controller
         return redirect()->route('adminstaff.newcategories');
     }
 
-    /**
-     * Show the products page.
-     *
-     * @return \Illuminate\Http\Response
-     */
-     public function showProducts()
-     {
-       // Get a instance of category
-      $cat = Category::all();
-      return view('staffadmin.pages.Product')->with('cat', $cat);
-     }
+    function collect(Request $req){
+        $req->validate([
+            'prodID' => 'required|integer',
+            'studID' => 'required|integer',
+            'staff' => 'required'
+        ]);
 
-     function collect(Request $req){
-      $req->validate([
-        'prodID' => 'required|integer',
-        'studID' => 'required|integer',
-        'staff' => 'required'
-      ]);
+        $productID = $req->input('prodID');
+        $collect_user_id = $req->input('studID');
+        $bookingID = $req->input('bookID');
+        $staff_inc = $req->input('staff');
 
-      $productID = $req->input('prodID');
-      $collect_user_id = $req->input('studID');
-      $bookingID = $req->input('bookID');
-      $staff_inc = $req->input('staff');
+        //DB::table('transactions')->select('product_id')->where('booking_id', $bookingID)->first();
 
-      DB::table('transactions')->select('product_id')->where('booking_id', $bookingID)->first();
+        $data = array("collect_user_id"=>$collect_user_id, "staff_incharge_collect_id"=>$staff_inc, "booking_status"=>"collected");
+        DB::table('transactions')->where('booking_id', $bookingID)->update($data);
 
-      $data = array("collect_user_id"=>$collect_user_id, "staff_incharge_collect_id"=>$staff_inc, "booking_status"=>"Collected");
-      DB::table('transactions')->where('booking_id', $bookingID)->update($data);
-
-      $getData = DB::table('activities')->insert(array("event"=>"Product ($productID) collected by User ($collect_user_id) from Staff ($staff_inc)"));
-      return redirect()->route('home');
+       $getData = DB::table('activities')->insert(array("event"=>"Product ($productID) collected by User ($collect_user_id) from Staff ($staff_inc)"));
+       return redirect()->route('home');
     }
 
     function return(Request $req){
 
-      $req->validate([
-        'comment' => 'required',
-        'staff' => 'required'
-      ]);
+        $req->validate([
+            'comment' => 'required',
+            'staff' => 'required'
+        ]);
 
-      $comment = $req->input('comment');
-      $staff_inch = $req->input('staff');
-      $bookingID = $req->input('bookID');
-      $productID = $req->input('prodID');
-      $data = array("staff_incharge_return_id"=>$staff_inch, "return_comment"=>$comment, 'return_date'=>date("Y-m-d"));
-      DB::table('transactions')->where('booking_id', $bookingID)->update($data);
+        $comment = $req->input('comment');
+        $staff_inch = $req->input('staff');
+        $bookingID = $req->input('bookID');
+        $productID = $req->input('prodID');
+        echo $staff_inch;
+        $data = array("staff_incharge_return_id"=>$staff_inch, "return_comment"=>$comment, 'return_date'=>date("Y-m-d"), "booking_status"=>"returned");
+        DB::table('transactions')->where('booking_id', $bookingID)->update($data);
 
-      $getData = DB::table('activities')->insert(array("event"=>"Product ($productID) returned to Staff ($staff_inch)" ));
-      return redirect()->route('home');
+        $getData = DB::table('activities')->insert(array("event"=>"Product ($productID) returned to Staff ($staff_inch)"));
+        return redirect()->route('home');
     }
 
     //function for logs.blade.php
