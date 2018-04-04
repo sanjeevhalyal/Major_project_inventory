@@ -34,7 +34,7 @@
       <div class="col-md-6 col-lg-3">
         <div class="widget-small info coloured-icon"><i class="icon fa fa-user-secret"></i>
           <div class="info">
-            <h4>Staff</h4>
+            <h4>Admin/Staff</h4>
             <p><b>
                     <?php
                     $users=\DB::select('select count(*) as c from users where id=2');

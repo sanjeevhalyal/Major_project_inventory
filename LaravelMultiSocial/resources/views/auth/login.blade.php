@@ -5,10 +5,10 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">Login</div>
+                <div class="panel-heading">This site requires you to login using NUIG account</div>
 
-                <div class="panel-body">
-                    <form class="form-horizontal" method="POST" action="{{ route('login') }}">
+                <div class="panel-body" style="display: flex;justify-content: center;">
+                    <!-- <form class="form-horizontal" method="POST" action="{{ route('login') }}">
                         {{ csrf_field() }}
 
                         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
@@ -44,8 +44,11 @@
 
                             </div>
                         </div>
-                    </form>
-                </div>
+                    </form> -->
+                    <a href="{{ route('auth.microsoft')}}"><button  class="btn btn-primary">
+                        Login Using Microsoft
+                    </button></a>
+                  </div>
             </div>
         </div>
     </div>

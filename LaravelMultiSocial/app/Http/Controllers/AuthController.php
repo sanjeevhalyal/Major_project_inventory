@@ -32,6 +32,11 @@ class AuthController extends Controller
     {
         $user = Socialize::driver('graph')->user();
         //Check wether the URL is consist of NUIG
+
+        $pos = strpos($user->email, '@nuigalway.ie');
+                if ($pos === false) {
+                    echo "Login using NUI galway ID";
+                } else {
         $authUser = $this->findUser($user);
         if($authUser)
         {
@@ -49,6 +54,7 @@ class AuthController extends Controller
            Auth::login($us, true);
            return redirect('/home');
         }
+      }
     }
 
     /**

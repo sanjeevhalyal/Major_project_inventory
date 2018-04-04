@@ -10,8 +10,13 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\User;
 
-Route::get('/', 'TestController@index');
+Route::get('/', 'UserHomePageController@index');
+
+// Route::get('/',function(){return  view('User Homepage/index1'); });
 
 Auth::routes();
 
@@ -23,7 +28,7 @@ Route::post('/home','HomeController@userRegistration')->name('home.post');
 
 // Login using microsoft login
 Route::middleware(['guest'])->group(function () {
-    Route::get('auth/microsoft', 'AuthController@redirectToProvider');
+    Route::get('auth/microsoft', 'AuthController@redirectToProvider')->name('auth.microsoft');
 });
 
 // microsoft routes
@@ -62,3 +67,46 @@ Route::get('admin/userlist', 'StaffAdminController@showuserlist')->name('adminst
 Route::post('/insert', 'StaffAdminController@collect');
 //return table update transactions
 Route::post('/collecting', 'StaffAdminController@return');
+
+
+
+// sanjeev
+
+
+
+
+Route::get('/getCat','GetCatController');
+
+Route::get('/getProd','GetProductController');
+
+Route::get('/getava','GetAvailabilityController');
+
+Route::post('/addtocart','AddToCartController');
+
+Route::get('/YourCart','CartController');
+
+Route::post('/deletefromcart',function (Request $request) {
+
+    DB::table('cart')->where('Cart_Id', '=', $request->input("CartID"))->delete();
+});
+
+Route::post('/checkout',function(Request $request){
+
+   $me= User::find(Auth::id());
+   $Cart = \DB::select('select * from cart WHERE User_Id=?', [$me->id]);
+
+   foreach ($Cart as $c) {
+
+       DB::table('transactions')->insert([
+           ['USER_ID' => $c->User_Id, 'Product_ID' => $c->Product_Id, 'START_DATE' => $c->Start_Date, 'END_DATE' => $c->End_Date, 'BOOKING_STATUS' => 'Pending', 'BOOKING_REASON' => $request->input('Reason')]
+       ]);
+
+       DB::table('cart')->where('Cart_Id', '=', $c->Cart_Id)->delete();
+       DB::commit();
+
+   }
+   echo 1;
+});
+
+
+// sanjeev end

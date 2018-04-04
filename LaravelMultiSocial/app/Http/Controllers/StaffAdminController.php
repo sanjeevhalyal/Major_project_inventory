@@ -61,6 +61,7 @@ class StaffAdminController extends Controller
         return redirect()->route('adminstaff.newcategories');
     }
 
+    //product collect form function
     function collect(Request $req){
         $req->validate([
             'prodID' => 'required|integer',
@@ -73,7 +74,6 @@ class StaffAdminController extends Controller
         $bookingID = $req->input('bookID');
         $staff_inc = $req->input('staff');
 
-        //DB::table('transactions')->select('product_id')->where('booking_id', $bookingID)->first();
 
         $data = array("collect_user_id"=>$collect_user_id, "staff_incharge_collect_id"=>$staff_inc, "booking_status"=>"collected");
         DB::table('transactions')->where('booking_id', $bookingID)->update($data);
@@ -82,6 +82,7 @@ class StaffAdminController extends Controller
        return redirect()->route('home');
     }
 
+    //product return form function
     function return(Request $req){
 
         $req->validate([
