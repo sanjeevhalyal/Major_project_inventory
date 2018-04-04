@@ -19,9 +19,8 @@
         <li><a id="dashboardsidenav" class="app-menu__item" href="{{ route('home')}}"><i class="app-menu__icon fa fa-dashboard"></i><span class="app-menu__label">Dashboard</span></a></li>
         <li><a id="categoriessidenav" class="app-menu__item" href="{{ route('adminstaff.categories')}}"><i class="app-menu__icon fa fa-pencil-square-o"></i><span class="app-menu__label">Categories</span></a></li>
         <li><a id="requestsidenav" class="app-menu__item" href="#"><i class="app-menu__icon fa fa-envelope"></i><span class="app-menu__label">Requests</span></a></li>
-        <li><a id="addprodsidenav" class="app-menu__item" href="#"><i class="app-menu__icon fa fa-plus-circle"></i><span class="app-menu__label">Add Products</span></a></li>
+        <li><a id="addprodsidenav" class="app-menu__item" href="#"><i class="app-menu__icon fa fa-plus-circle"></i><span class="app-menu__label">Products</span></a></li>
         <li><a id="userlistsidenav" class="app-menu__item" href="userlist.html"><i class="app-menu__icon fa fa-address-book-o"></i><span class="app-menu__label">Users List</span></a></li>
-        <li><a id="reportssidenav" class="app-menu__item" href="#"><i class="app-menu__icon fa fa-th-list"></i><span class="app-menu__label">Reports</span></a></li>
         <li><a id="logssidenav" class="app-menu__item"  href="{{ route('adminstaff.logs')}}"><i class="app-menu__icon fa fa-file-text"></i><span class="app-menu__label">Logs</span></a></li>
         <li><a id="helppagesidenav" class="app-menu__item" href="#"><i class="app-menu__icon fa fa-question-circle"></i><span class="app-menu__label">Help Page</span></a></li>
       </ul>
