@@ -191,7 +191,7 @@
             data: {'Reason':r,_token: '{{csrf_token()}}'},
             success: function( msg ) {
                 alert("Request Send To Admin");
-                window.location = "/testhome";
+                window.location = "/";
             },
             error: function (data, textStatus, errorThrown) {
                 console.log(data);
